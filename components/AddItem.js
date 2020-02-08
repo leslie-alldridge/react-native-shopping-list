@@ -12,10 +12,9 @@ const AddItem = ({title}) => {
   return (
     <View>
       <TextInput placeholder="Add Item..." style={styles.input} />
-      <TouchableOpacity stlye={styles.btn}>
+      <TouchableOpacity style={styles.btn}>
         <Text style={styles.btnText}>
-          <Icon name="plus" size={20} />
-          Add Item
+          <Icon name="plus" size={20} /> Add Item
         </Text>
       </TouchableOpacity>
     </View>
