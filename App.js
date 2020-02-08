@@ -29,7 +29,7 @@ const App = () => {
   // Flag true if user is currently editing an item
   const [editStatus, editStatusChange] = useState(false);
 
-  // Save the ID and newly updated item name
+  // State to capture information about the item being edited
   const [editItemDetail, editItemDetailChange] = useState({
     id: null,
     text: null,
@@ -60,9 +60,7 @@ const App = () => {
   const addItem = text => {
     if (!text) {
       Alert.alert(
-        //title
         'No item entered',
-        //body
         'Please enter an item when adding to your shopping list',
         [
           {
