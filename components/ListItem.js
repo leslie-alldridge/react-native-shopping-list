@@ -1,18 +1,58 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const ListItem = ({item, deleteItem}) => {
+const ListItem = ({
+  item,
+  deleteItem,
+  editItem,
+  isEditing,
+  editItemDetail,
+  saveEditItem,
+  handleEditChange,
+}) => {
+  console.log(editItemDetail);
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
-        <Text style={styles.listItemText}>{item.text}</Text>
-        <Icon
-          name="remove"
-          size={20}
-          color="firebrick"
-          onPress={() => deleteItem(item.id)}
-        />
+        {isEditing && editItemDetail.id === item.id ? (
+          <TextInput
+            placeholder="Edit Item..."
+            style={styles.input}
+            onChangeText={handleEditChange}
+          />
+        ) : (
+          <Text style={styles.listItemText}>{item.text}</Text>
+        )}
+        <View style={styles.iconView}>
+          {isEditing && editItemDetail.id === item.id ? (
+            <Icon
+              name="save"
+              size={20}
+              color="green"
+              onPress={() => saveEditItem(item.id, item.text)}
+            />
+          ) : (
+            <Icon
+              name="pencil"
+              size={20}
+              color="blue"
+              onPress={() => editItem(item.id, item.text)}
+            />
+          )}
+          <Icon
+            name="remove"
+            size={20}
+            color="firebrick"
+            onPress={() => deleteItem(item.id)}
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -32,6 +72,11 @@ const styles = StyleSheet.create({
   },
   listItemText: {
     fontSize: 18,
+  },
+  iconView: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: 70,
   },
 });
 

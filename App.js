@@ -26,14 +26,34 @@ const App = () => {
     },
   ]);
 
+  const [editStatus, editStatusChange] = useState(false);
+
+  const [editItemDetail, editItemDetailChange] = useState({
+    id: null,
+    text: null,
+  });
+
   const deleteItem = id => {
     setItems(prevItems => {
       return prevItems.filter(item => item.id !== id);
     });
   };
 
+  const saveEditItem = (id, text) => {
+    console.log(id, text);
+    setItems(prevItems => {
+      return prevItems.map(item =>
+        item.id == editItemDetail.id ? {id, text: editItemDetail.text} : item,
+      );
+    });
+    editStatusChange(!editStatus);
+  };
+
+  const handleEditChange = text => {
+    editItemDetailChange({id: editItemDetail.id, text});
+  };
+
   const addItem = text => {
-    console.log(text);
     if (!text) {
       Alert.alert(
         //title
@@ -55,6 +75,14 @@ const App = () => {
     }
   };
 
+  const editItem = (id, text) => {
+    editItemDetailChange({
+      id,
+      text,
+    });
+    return editStatusChange(!editStatus);
+  };
+  console.log(items);
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />
@@ -62,7 +90,15 @@ const App = () => {
       <FlatList
         data={items}
         renderItem={({item}) => (
-          <ListItem item={item} deleteItem={deleteItem} />
+          <ListItem
+            item={item}
+            deleteItem={deleteItem}
+            editItem={editItem}
+            isEditing={editStatus}
+            editItemDetail={editItemDetail}
+            saveEditItem={saveEditItem}
+            handleEditChange={handleEditChange}
+          />
         )}
       />
     </View>
