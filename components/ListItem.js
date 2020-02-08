@@ -23,7 +23,7 @@ const ListItem = ({
         {isEditing && editItemDetail.id === item.id ? (
           <TextInput
             placeholder="Edit Item..."
-            style={styles.input}
+            style={styles.editItemInput}
             onChangeText={handleEditChange}
           />
         ) : (
@@ -76,6 +76,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: 70,
+  },
+  editItemInput: {
+    padding: 0,
+    fontSize: 18,
   },
 });
 
