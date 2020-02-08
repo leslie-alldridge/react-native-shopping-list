@@ -91,7 +91,8 @@ const App = () => {
   const itemChecked = (id, text) => {
     const isChecked = checkedItems.filter(checkedItem => checkedItem.id === id);
     isChecked.length
-      ? checkedItemChange(prevItems => {
+      ? // remove item from checked items state (uncheck)
+        checkedItemChange(prevItems => {
           return [...prevItems.filter(item => item.id !== id)];
         })
       : // Add item to checked items state
