@@ -35,6 +35,8 @@ const App = () => {
     text: null,
   });
 
+  const [checkedItems, checkedItemChange] = useState([]);
+
   const deleteItem = id => {
     setItems(prevItems => {
       return prevItems.filter(item => item.id !== id);
@@ -86,6 +88,18 @@ const App = () => {
     return editStatusChange(!editStatus);
   };
 
+  const itemChecked = (id, text) => {
+    const isChecked = checkedItems.filter(checkedItem => checkedItem.id === id);
+    isChecked.length
+      ? checkedItemChange(prevItems => {
+          return [...prevItems.filter(item => item.id !== id)];
+        })
+      : // Add item to checked items state
+        checkedItemChange(prevItems => {
+          return [...prevItems.filter(item => item.id !== id), {id, text}];
+        });
+  };
+
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />
@@ -101,6 +115,8 @@ const App = () => {
             editItemDetail={editItemDetail}
             saveEditItem={saveEditItem}
             handleEditChange={handleEditChange}
+            itemChecked={itemChecked}
+            checkedItems={checkedItems}
           />
         )}
       />
