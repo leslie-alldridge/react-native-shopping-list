@@ -26,8 +26,10 @@ const App = () => {
     },
   ]);
 
+  // Flag true if user is currently editing an item
   const [editStatus, editStatusChange] = useState(false);
 
+  // Save the ID and newly updated item name
   const [editItemDetail, editItemDetailChange] = useState({
     id: null,
     text: null,
@@ -39,16 +41,18 @@ const App = () => {
     });
   };
 
+  // Submit the users edits to the overall items state
   const saveEditItem = (id, text) => {
-    console.log(id, text);
     setItems(prevItems => {
       return prevItems.map(item =>
-        item.id == editItemDetail.id ? {id, text: editItemDetail.text} : item,
+        item.id === editItemDetail.id ? {id, text: editItemDetail.text} : item,
       );
     });
+    // Flip edit status back to false
     editStatusChange(!editStatus);
   };
 
+  // Event handler to capture users text input as they edit an item
   const handleEditChange = text => {
     editItemDetailChange({id: editItemDetail.id, text});
   };
@@ -75,6 +79,7 @@ const App = () => {
     }
   };
 
+  // capture old items ID and text when user clicks edit
   const editItem = (id, text) => {
     editItemDetailChange({
       id,
@@ -82,7 +87,7 @@ const App = () => {
     });
     return editStatusChange(!editStatus);
   };
-  console.log(items);
+
   return (
     <View style={styles.container}>
       <Header title="Shopping List" />

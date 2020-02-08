@@ -17,7 +17,6 @@ const ListItem = ({
   saveEditItem,
   handleEditChange,
 }) => {
-  console.log(editItemDetail);
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
